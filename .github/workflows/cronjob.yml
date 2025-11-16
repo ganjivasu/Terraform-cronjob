@@ -1,0 +1,25 @@
+name: cron job for terraform resource
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6-beta
+
+    - name: "Configure AWS Credentials"
+      uses: aws-actions/configure-aws-credentials@v5.1.0
+      with:
+        aws-region: us-east-1
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: AWS Cluster creation
+      run: |
+        terraform init
+        terraform plan
+        terraform apply --auto-approve
