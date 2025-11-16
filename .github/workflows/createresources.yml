@@ -1,4 +1,4 @@
-name: cron job for terraform resource
+name: AWS EKS Creation using Terraform
 
 on:
   schedule:
